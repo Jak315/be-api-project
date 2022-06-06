@@ -37,24 +37,26 @@ router.delete("/category/:id", (req, res) => {
   console.log(req.params.id);
   Category.findOneAndRemove({ _id: req.params.id }, function (err, data) {
     if (err) throw err;
-    // res.json(data);
-    res.send("deleted");
+    res.json(data);
   });
-  //   res.send({ data: "data" });
 });
 
-router.put("/category", jsonParser, (req, res) => {
+router.put("/category/:id", jsonParser, (req, res) => {
   // console.log(req.body);
+  const id = req.params.id
+  console.log(id)
+  const body = req.body
+  console.log(body)
   Category.findByIdAndUpdate(
-    req.body.id,
+    id,
     {
       name: req.body.name,
       color: req.body.color,
     },
     function (err, data) {
       if (err) throw err;
-      // res.json(data);
-      res.send("updated");
+      res.json(data);
+      // res.send("updated");
     }
   );
   // res.send({ data: "data" });
